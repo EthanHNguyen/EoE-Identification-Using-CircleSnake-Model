@@ -5,7 +5,7 @@ import json
 import os
 from PIL import Image
 import numpy as np
-from pycococreatortools import pycococreatortools
+from pycococreator import pycococreatortools
 from utils import filter_for_annotations, filter_for_jpeg, walklevel
 
 ROOT_DIR = "/home/VANDERBILT/liuy99/Documents/EOS/train"
