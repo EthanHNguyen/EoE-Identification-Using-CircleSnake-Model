@@ -5,10 +5,10 @@ import json
 import os
 from PIL import Image
 import numpy as np
-from pycococreator import pycococreatortools
+from pycococreatortools import pycococreatortools
 from utils import filter_for_annotations, filter_for_jpeg, walklevel
 
-ROOT_DIR = "/home/VANDERBILT/liuy99/Documents/EOS/train"
+ROOT_DIR = "/home/ethan/Documents/circlesnake-yilin"
 IMAGE_DIR = os.path.join(ROOT_DIR, "tiles")
 ANNOTATION_DIR = os.path.join(ROOT_DIR, "tiles")
 
@@ -26,10 +26,10 @@ LICENSES = [
 ]
 
 CATEGORIES = [
-    {"id": 1, "name": "eos", "supercategory": "Class",},
-    {"id": 2, "name": "papilla", "supercategory": "Class",},
-    {"id": 3, "name": "rbc", "supercategory": "Class",},
-    {"id": 4, "name": "cluster", "supercategory": "Class",},
+    {"id": 1, "name": "eos", "supercategory": "Class", },
+    {"id": 2, "name": "papilla", "supercategory": "Class", },
+    {"id": 3, "name": "rbc", "supercategory": "Class", },
+    {"id": 4, "name": "cluster", "supercategory": "Class", },
 ]
 
 
@@ -38,7 +38,7 @@ def main():
     sublist["train"] = ["P18_1908_S2"]
     sublist["val"] = []
     sublist["test"] = []
-    types = ["train", "val", "test"]
+    types = ["train"]
 
     for type in types:
         image_id = 1
@@ -52,16 +52,15 @@ def main():
             "annotations": [],
         }
 
-        # filter for jpeg images
+        json_output_path = os.path.join(ROOT_DIR, f"{type}.json")
+
+        # process each folder
         for root, folders, files in os.walk(IMAGE_DIR, 0):
-            json_file = os.path.join(ROOT_DIR, "json/Eos_%s2022.json" % type)
 
             # go through each scn image
             for image_folder in folders:
                 images_path = os.path.join(IMAGE_DIR, image_folder)
                 for _, _, images in os.walk(images_path, 0):
-                    # image_files = filter_for_jpeg(image_path, files)
-                    # image_path = os.path.join(IMAGE_DIR, image_folder, os.path.basename(folder_path)+'.png')
                     for filename in images:
                         if filename.endswith('.jpg') and filename.split(' ')[0] in sublist[type]:
 
@@ -116,15 +115,10 @@ def main():
 
                             image_id = image_id + 1
 
-        # print(coco_output)
-        # with open(
-        #     os.path.join(ROOT_DIR, "eos_coco.json"), "w"
-        # ) as output_json_file:
-        #     json.dump(coco_output, output_json_file)
-        with open(json_file.format(ROOT_DIR), 'w') as output_json_file:
+        with open(json_output_path, 'w') as output_json_file:
             json.dump(coco_output, output_json_file)
 
-        print(f"SUCCESS: created coco file in {ROOT_DIR}")
+        print(f"SUCCESS: created coco file: {json_output_path}")
 
 
 if __name__ == "__main__":
