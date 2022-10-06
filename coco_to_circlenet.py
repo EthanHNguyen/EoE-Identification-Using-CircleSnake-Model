@@ -194,8 +194,8 @@ def write_json_file(new_data, output_file):
         json.dump(new_data, output_json_file)
 
 if __name__ == "__main__":
-    seg_root_dir = '/home/VANDERBILT/liuy99/Documents/EOS/train/json'
-    circle_root_dir = '/home/VANDERBILT/liuy99/Documents/EOS/train/json'
+    seg_root_dir = '/home/ethan/Documents/circlesnake-yilin/coco'
+    circle_root_dir = '/home/ethan/Documents/circlesnake-yilin/coco'
 
     json_list = glob.glob(os.path.join(seg_root_dir, '*.json'))
     json_list.sort()
